@@ -1,0 +1,55 @@
+# Creado por: Angel Rojas - Portafolio V2
+# Mano, este es el workflow de GitHub Actions que compila y monta tu portafolio solo.
+# Cada vez que lances un push a la rama main, este beta se activa, compila y despliega en GitHub Pages.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Tranqui, usaremos la rama main que es la que se crea por defecto
+
+# Le damos permisos a la Action para que pueda publicar en GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Si tiras dos pushes seguidos, cancela la compilación vieja y corre la nueva para ahorrar tiempo
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist # Le decimos que suba la carpeta dist que es donde Vite compila la magia
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

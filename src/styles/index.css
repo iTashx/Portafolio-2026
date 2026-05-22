@@ -1,0 +1,79 @@
+/* Creado por: Angel Rojas - Portafolio V2 */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  
+  /* Colores personalizados para darle el toque oscuro elegante y tecnológico */
+  --color-dark-bg: #070a13;
+  --color-dark-card: #0e1626;
+  --color-dark-border: rgba(255, 255, 255, 0.06);
+  --color-brand-cyan: #00f0ff;
+  --color-brand-purple: #bd00ff;
+  --color-brand-blue: #3b82f6;
+
+  /* Animaciones personalizadas */
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Tranqui, estas clases globales le dan la sazón al fondo y al scrollbar */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    background-color: var(--color-dark-bg);
+    color: #f3f4f6;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar para que combine con el diseño oscuro */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #070a13;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-blue);
+  }
+}
+
+/* Efectos de fondo premium para impresionar al cliente al primer tiro */
+.grid-bg {
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0),
+    radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
+.gradient-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(189, 0, 255, 0.05) 50%, transparent 100%);
+  filter: blur(80px);
+  pointer-events: none;
+}
